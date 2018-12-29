@@ -1,0 +1,35 @@
+{
+  "name": "nayo",
+  "version": "1.0.0",
+  "description": "nayo is the simple DAO for mongoDB by nodejs",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Terencesun/nayo.git"
+  },
+  "keywords": [
+    "nodejs",
+    "mongoDB",
+    "DAO",
+    "simple"
+  ],
+  "author": "Terence孫",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Terencesun/nayo/issues"
+  },
+  "homepage": "https://github.com/Terencesun/nayo#readme",
+  "dependencies": {
+    "mongodb": "^3.1.10"
+  },
+  "devDependencies": {
+    "should": "^13.2.3"
+  }
+}
