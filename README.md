@@ -8,7 +8,7 @@ nayo是一个基于mongoDB的js原生封装，基本思想是把每个操作(CUR
 
 factory():
 
-生成factory实例，在配置文件中设置好改factory使用的db的地址，对于连接的collection名称，是在每个任务包中提供的，不用单独设置
+生成factory实例，在配置文件中设置好~~~~改factory使用的db的地址，对于连接的collection名称，是在每个任务包中提供的，不用单独设置
 
 #### 方法：
 

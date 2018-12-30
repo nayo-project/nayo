@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "npm run test"
+    "test": "mocha ./tests/test.js --require ./tests/env.js"
   },
   "repository": {
     "type": "git",
