@@ -63,7 +63,7 @@ exports.data_4 = [
         pipeline: [
             {
                 $match: {
-                    "test": "test"
+                    "test": "nayo"
                 }
             }
         ]
@@ -74,7 +74,7 @@ exports.data_4 = [
 exports.data_5 = [
     {
         collection: "test",
-        target_doc: { "test": "test" },
+        target_doc: { "test": "nayo" },
         method: 5,
         doc: null,
         param: {},
@@ -86,7 +86,7 @@ exports.data_5 = [
 exports.data_6 = [
     {
         collection: "test",
-        target_doc: { $eq: { "test": "test" } },
+        target_doc: { test: { "$eq": "test" } },
         method: 6,
         doc: { $set: { "test": "nayo" } },
         param: {},
