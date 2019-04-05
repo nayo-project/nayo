@@ -13,6 +13,12 @@
 
 #### the simple operation interface for mongoDB by nodejs 
 ---
+### Update Log
+- add the method "authenticate", so you can check if the connection is successful 
+- remove default configs "authMechanism" because I find it send error message so I remove it and you can add the config by yourself
+### To do
+- add the log-record of query so we can see the execution time and the detail of query, maybe you can customize the your log-record
+---
 ### 1.Introduction
 Nayo is a simple operation interfaces based on the workList-workPack conceptual design.
 
@@ -123,7 +129,6 @@ let options = {
 default config
 config = {
     connection: {
-        authMechanism: "MDEFAULT",
         useNewUrlParser: true,
         readPreference: "secondaryPreferred",
         readConcern: {
@@ -177,16 +182,21 @@ nayo.push(workList).then(res => { // if it works successfully, we will get res
 ##### return Promise
 ###### push the workList to translate and do the task in MongoDB, please check the sample to find how to use it 
 
-
+#### authenticate()
+##### return Promise
+###### if the connection is successful, if the connection is successful
+```
+nayo.authenticate().then(ret => {
+    console.log(ret)            // successful, will return "Connect Success"
+}).catch(e => {
+    console.log(e)              // occur error or fail, will return the error or "Connect Fail"
+});
+```
 ### 6.License
 
 This library is published under the MIT license. See LICENSE for details.
 
-### 7.Thanks
-
-- CoCo
-
-### 8.Reference
+### 7.Reference
 
 - [MongoDB manual](https://docs.mongodb.com/manual/)
 - [MongoDB Node api](http://mongodb.github.io/node-mongodb-native/3.1/api/)
