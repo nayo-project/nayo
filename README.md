@@ -184,7 +184,7 @@ nayo.push(workList).then(res => { // if it works successfully, we will get res
 
 #### authenticate()
 ##### return Promise
-###### if the connection is successful, if the connection is successful
+###### check if the connection is successful
 ```
 nayo.authenticate().then(ret => {
     console.log(ret)            // successful, will return "Connect Success"
