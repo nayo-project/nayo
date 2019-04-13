@@ -14,10 +14,9 @@
 #### the simple operation interface for mongoDB by nodejs 
 ---
 ### Update Log
-- add the method "authenticate", so you can check if the connection is successful 
-- remove default configs "authMechanism" because I find it send error message so I remove it and you can add the config by yourself
+- add the config "logging" so that you can customize your logging method
 ### To do
-- add the log-record of query so we can see the execution time and the detail of query, maybe you can customize the your log-record
+- will add python version, please give me some time :)
 ---
 ### 1.Introduction
 Nayo is a simple operation interfaces based on the workList-workPack conceptual design.
@@ -100,11 +99,13 @@ every workPack is a json, just like this
 - param: if the orignal operation have the parameter option, you can wirte the param, like "limit", "sort" and so on. by the way, the param should be {} if you don't write it
 - pipeline: if the method is aggregate, here is the place to write the pipeline, the way is same as the orignal, you can see [the doc of aggregate](https://docs.mongodb.com/manual/aggregation/), if you don't use the pipeline, you should set it to null
 
+**Notice: the method "aggregate" only support the method "insertOne", "deleteOne", "deleteMany", "updateMany", if you have some great ideas you can commit the issue, I'm so glad to know more ways to promote NAYO**
+
 [Here is the doc](https://docs.mongodb.com/manual/crud/), you can learn about the orignal operation CURD in detail.
 
 In the end, **All attributes of the workPack should not be discarded**.
 
-OK, all these is about the introduction of the workList and workPack, if you still have question, you can commit issue for help.
+OK, all these are about the introduction of the workList and workPack, if you still have question, you can commit issue for help.
 
 ### 3.Install
 ```
@@ -114,6 +115,7 @@ npm install nayo --save
 or download this repo to use
 
 ### 4.Examples
+**you can find how to write the options and the config**
 ```
 const NAYO = require("nayo");
 
@@ -138,9 +140,17 @@ config = {
     transaction: {
         readConcern: { level: 'majority' },
         writeConcern: { w: 1 }
-    }
+    },
+    logging: Function-name
 }
 */
+let logging_function = (process_time, query_statement) => {
+    // do something
+    // if you don't write your function, the default function will work
+    // this function has two argument, you can use it
+    // process_time ----> the process's execution time(ms)
+    // query_statement ----> the command sentence which can use on the MongoShell, btw, the query_statement is an Array
+}
 
 let config = {  // this is the mongoDB connection and transaction config
                 // see http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html for connection config infomation
@@ -150,7 +160,8 @@ let config = {  // this is the mongoDB connection and transaction config
     },
     transaction: {
         /**/
-    }
+    },
+    logging: logging_function     // don't write the function, should write function name
 }
 const nayo = new NAYO(options, config);
 
