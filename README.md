@@ -1,4 +1,4 @@
-![nayo](https://raw.githubusercontent.com/Terencesun/nayo/master/logo.jpg)
+![nayo](https://raw.githubusercontent.com/Terencesun/nayo/master-nodejs/logo.jpg)
 
 
 ![](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
