@@ -1,4 +1,4 @@
-![nayo](https://raw.githubusercontent.com/Terencesun/nayo/master-nodejs/logo.jpg)
+![nayo](https://raw.githubusercontent.com/Terencesun/nayo/master-nodejs/logo.png)
 
 
 ![](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
@@ -14,7 +14,7 @@
 #### the simple operation interface for mongoDB by nodejs 
 ---
 ### Update Log
-- add the config "logging" so that you can customize your logging method
+- export the ReadPreference class, and you can use it to set up the transaction and connection's readPerference config
 ### To do
 - will add python version, please give me some time :)
 ---
@@ -117,7 +117,7 @@ or download this repo to use
 ### 4.Examples
 **you can find how to write the options and the config**
 ```
-const NAYO = require("nayo");
+const Nayo = require("nayo");
 
 // init NAYO
 // here is two params, options and config
@@ -163,7 +163,7 @@ let config = {  // this is the mongoDB connection and transaction config
     },
     logging: logging_function     // don't write the function, should write function name
 }
-const nayo = new NAYO(options, config);
+const nayo = new Nayo(options, config);
 
 // arrange the workList and workPack
 let workList = [
@@ -186,15 +186,28 @@ nayo.push(workList).then(res => { // if it works successfully, we will get res
 
 // done
 ```
+### 5.Class
+- **Nayo(options, config)**
 
-### 5.Method
+the main class of nayo, you can use it by **new Nayo(options, config)** to generate a instance **nayo**
+, you can see the 4.Example to see the options and config's introduce
+- **ReadPerence**
+ 
+this class is same as mongodb
+you can see more to learn about it, [click here](http://mongodb.github.io/node-mongodb-native/2.0/api/ReadPreference.html)
 
-#### push(workList) 
-##### return Promise
+```
+// how to require ReadPerence
+// Example:
+const ReadPerence = require(nayo).ReadPerence
+```
+### 6.Method
+#### nayo.push(workList) 
+##### return \<Promise>
 ###### push the workList to translate and do the task in MongoDB, please check the sample to find how to use it 
 
-#### authenticate()
-##### return Promise
+#### nayo.authenticate()
+##### return \<Promise>
 ###### check if the connection is successful
 ```
 nayo.authenticate().then(ret => {
@@ -203,11 +216,12 @@ nayo.authenticate().then(ret => {
     console.log(e)              // occur error or fail, will return the error or "Connect Fail"
 });
 ```
-### 6.License
+
+### 7.License
 
 This library is published under the MIT license. See LICENSE for details.
 
-### 7.Reference
+### 8.Reference
 
 - [MongoDB manual](https://docs.mongodb.com/manual/)
 - [MongoDB Node api](http://mongodb.github.io/node-mongodb-native/3.1/api/)
