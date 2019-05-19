@@ -4,8 +4,7 @@
   "description": "nayo is the operation interfaces for mongoDB by nodejs",
   "main": "index.js",
   "directories": {
-    "lib": "lib",
-    "test": "tests"
+    "lib": "lib"
   },
   "scripts": {},
   "repository": {
@@ -28,8 +27,5 @@
     "mongodb": "^3.1.10",
     "underscore": "^1.9.1"
   },
-  "devDependencies": {
-    "mocha": "^5.2.0",
-    "should": "^13.2.3"
-  }
+  "devDependencies": {}
 }
