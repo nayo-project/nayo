@@ -19,5 +19,6 @@ const nayo = require('./lib/nayo');
 // may be, you can read the pymongo to know more, it is somewhat similar to Node
 // http://api.mongodb.com/python/current/api/pymongo/read_preferences.html
 nayo.ReadPreference  = require("mongodb").ReadPreference
+nayo.ObjectId = require("mongodb").ObjectId;
 
 module.exports = nayo;

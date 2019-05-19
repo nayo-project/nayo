@@ -5,7 +5,6 @@
 ![](https://img.shields.io/npm/v/nayo.svg)
 ![](https://img.shields.io/node/v/carbon.svg)
 ![](https://img.shields.io/badge/mongoDB%20version-%3E%3D4.x.x-brightgreen.svg)
-![](https://travis-ci.com/Terencesun/nayo.svg?branch=master)
 ![](https://img.shields.io/github/languages/top/Terencesun/nayo.svg)
 ![](https://img.shields.io/github/license/Terencesun/nayo.svg)
 ![](https://img.shields.io/github/last-commit/Terencesun/nayo.svg)
@@ -14,7 +13,9 @@
 #### the simple operation interface for mongoDB by nodejs 
 ---
 ### Update Log
-- export the ReadPreference class, and you can use it to set up the transaction and connection's readPerference config
+- export the ObjectId class, and you can use it to find the document via ObjectId
+- optimizing code structure and stability improved
+- workPack add new optional attribute 【db】，it will work only in the transaction, and you can do the cross library transactions,btw, the optional attribute 【db】 will be required in nayo 2.0.0 and then you can operate the multiple database in mongodb
 ### To do
 - will add python version, please give me some time :)
 ---
@@ -58,6 +59,9 @@ just like this
 ```
 [
     {
+        db: {  // optional
+            name: "test_database"
+        },
         collection: "test",
         target_doc: {"test": "test"},
         method: 0,
@@ -76,6 +80,9 @@ every workPack is a json, just like this
 
 ```
 {
+    db: {  // optional
+        name: "test_database"
+    },
     collection: "test",
     target_doc: {"test": "test"},
     method: 0,
@@ -84,7 +91,8 @@ every workPack is a json, just like this
     pipeline: null
 }
 ```
-
+- db: optional, it is the object contain the 【name】 only, only work in transaction,if you set it wrong, nayo will throw error, if you don's set this, the transaction will use the default db when you config the nayo:
+  - name: the db's name, **The database must exist, otherwise it will not work properly!**
 - collection: the collection name of db, it should be required
 - target_doc: if the method have the target document, you should write this, the query is same as the orignal operation, like {xxx: xxx} in db.test.find({xxx: xxx}); if the method haven't the traget document, you should set the target_doc to null
 - method: the number of operation method:
@@ -99,11 +107,11 @@ every workPack is a json, just like this
 - param: if the orignal operation have the parameter option, you can wirte the param, like "limit", "sort" and so on. by the way, the param should be {} if you don't write it
 - pipeline: if the method is aggregate, here is the place to write the pipeline, the way is same as the orignal, you can see [the doc of aggregate](https://docs.mongodb.com/manual/aggregation/), if you don't use the pipeline, you should set it to null
 
-**Notice: the method "aggregate" only support the method "insertOne", "deleteOne", "deleteMany", "updateMany", if you have some great ideas you can commit the issue, I'm so glad to know more ways to promote NAYO**
+**Notice: the method "transaction" only support the method "insertOne", "deleteOne", "findOneAndUpdate", "deleteMany", "updateMany", if you have some great ideas you can commit the issue, I'm so glad to know more ways to promote NAYO**
 
 [Here is the doc](https://docs.mongodb.com/manual/crud/), you can learn about the orignal operation CURD in detail.
 
-In the end, **All attributes of the workPack should not be discarded**.
+In the end, **All attributes except the 【db】 of the workPack should not be discarded**.
 
 OK, all these are about the introduction of the workList and workPack, if you still have question, you can commit issue for help.
 
@@ -123,15 +131,20 @@ const Nayo = require("nayo");
 // here is two params, options and config
 
 let options = {
-    url: "xxx", // mongodb url
-    db: "yyy"   // db's name
+    // mongodb url
+    url: "xxx",
+    // default db's options
+    // db is object, shoul contain the db's name, like below
+    // db is same as the workPack's db
+    db: {
+       name: "yyy" 
+    }
 }
 
 /*
 default config
 config = {
     connection: {
-        useNewUrlParser: true,
         readPreference: "secondaryPreferred",
         readConcern: {
             level: "majority"
@@ -177,6 +190,32 @@ let workList = [
     }
 ];
 
+// transaction workList
+// when the workList has 2 or more workPack, the transaction will auto be used
+// but nayo transaction only support the method "insertOne", "deleteOne", "findOneAndUpdate", "deleteMany", "updateMany" now
+let workList_transaction = [
+    {
+        db: {
+            name: "test_database"
+        },
+        collection: "test",
+        target_doc: null,
+        method: 0, // insertOne
+        doc: { "test": "test" },
+        param: {},
+        pipeline: null
+    },
+    {
+        collection: "test",
+        target_doc: null,
+        method: 0, // insertOne
+        doc: { "test": "test" },
+        param: {},
+        pipeline: null
+    },
+    ...
+]
+
 // do the work
 nayo.push(workList).then(res => { // if it works successfully, we will get res
     console.log(res);
@@ -200,6 +239,17 @@ you can see more to learn about it, [click here](http://mongodb.github.io/node-m
 // how to require ReadPerence
 // Example:
 const ReadPerence = require(nayo).ReadPerence
+```
+
+- **ObjectId**
+ 
+this class is same as mongodb
+you can see more to learn about it, [click here](https://docs.mongodb.com/manual/reference/method/ObjectId/index.html)
+
+```
+// how to require ObjectId
+// Example:
+const ObjectId = require(nayo).ObjectId
 ```
 ### 6.Method
 #### nayo.push(workList) 
