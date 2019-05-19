@@ -3,7 +3,7 @@
 
 ![](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
 ![](https://img.shields.io/npm/v/nayo.svg)
-![](https://img.shields.io/node/v/carbon.svg)
+![](https://img.shields.io/badge/node-%3E%3D8.5.0-brightgreen.svg)
 ![](https://img.shields.io/badge/mongoDB%20version-%3E%3D4.x.x-brightgreen.svg)
 ![](https://img.shields.io/github/languages/top/Terencesun/nayo.svg)
 ![](https://img.shields.io/github/license/Terencesun/nayo.svg)
