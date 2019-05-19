@@ -15,7 +15,7 @@
 ### Update Log
 - export the ObjectId class, and you can use it to find the document via ObjectId
 - optimizing code structure and stability improved
-- workPack add new optional attribute 【db】，it will work only in the transaction, and you can do the cross library transactions,btw, the optional attribute 【db】 will be required in nayo 2.0.0 and then you can operate the multiple database in mongodb
+- workPack and nayo options add new optional attribute 【db】，it will work only in the transaction, and you can do the cross library transactions,btw, the optional attribute 【db】 will be required in nayo 2.0.0 and then you can operate the multiple database in mongodb
 ### To do
 - will add python version, please give me some time :)
 ---
