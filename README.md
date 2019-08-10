@@ -1,7 +1,7 @@
 ![nayo](https://raw.githubusercontent.com/Terencesun/nayo/master-nodejs/logo.jpg)
 
 
-![](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
+![](https://img.shields.io/badge/version-2.0.0-brightgreen.svg)
 ![](https://img.shields.io/npm/v/nayo.svg)
 ![](https://img.shields.io/badge/node-%3E%3D8.5.0-brightgreen.svg)
 ![](https://img.shields.io/badge/mongoDB%20version-%3E%3D4.x.x-brightgreen.svg)
@@ -10,14 +10,18 @@
 ![](https://img.shields.io/github/last-commit/Terencesun/nayo.svg)
 ![](https://img.shields.io/github/stars/Terencesun/nayo.svg?label=Stars&style=social)
 
-#### the simple operation interface for mongoDB by nodejs 
+#### The simple operation interface for mongoDB by Nodejs and Python 
 ---
 ### Update Log
-- export the ObjectId class, and you can use it to find the document via ObjectId
-- optimizing code structure and stability improved
-- workPack and nayo options add new optional attribute 【db】，it will work only in the transaction, and you can do the cross library transactions,btw, the optional attribute 【db】 will be required in nayo 2.0.0 and then you can operate the multiple database in mongodb
-### To do
-- will add python version, please give me some time :)
+- the version 2.0.0 add the python version
+- update the workPack and the options while initing the Nayo
+
+### nayo-project
+Here are other projects in nayo-project, if it help u welcome to **star this project**~ thx~
+
+- nayo-mongo --> [link](https://github.com/nayo-project/nayo)
+- nayo-admin-core --> [link](https://github.com/nayo-project/nayo-admin-core)
+- nayo-admin --> [link](https://github.com/nayo-project/nayo-admin)
 ---
 ### 1.Introduction
 Nayo is a simple operation interfaces based on the workList-workPack conceptual design.
@@ -31,20 +35,22 @@ just like this
 ```
 [
     {
-        collection: "test",
-        target_doc: {"test": "test"},
-        method: 0,
-        doc: null,
-        param: {},
-        pipeline: null
+        "db": "test",
+        "collection": "test",
+        "target_doc": {"test": "test"},
+        "method": 0,
+        "doc": null,
+        "param": null,
+        "pipeline": null
     },
     {
-        collection: "test",
-        target_doc: {"test": "test"},
-        method: 0,
-        doc: null,
-        param: {},
-        pipeline: null
+        "db": "test",
+        "collection": "test",
+        "target_doc": {"test": "test"},
+        "method": 0,
+        "doc": null,
+        "param": null,
+        "pipeline": null
     }
 ]
 ```
@@ -59,15 +65,13 @@ just like this
 ```
 [
     {
-        db: {  // optional
-            name: "test_database"
-        },
-        collection: "test",
-        target_doc: {"test": "test"},
-        method: 0,
-        doc: null,
-        param: {},
-        pipeline: null
+        "db": "test",
+        "collection": "test",
+        "target_doc": {"test": "test"},
+        "method": 0,
+        "doc": null,
+        "param": null,
+        "pipeline": null
     }
 ]
 ```
@@ -80,19 +84,16 @@ every workPack is a json, just like this
 
 ```
 {
-    db: {  // optional
-        name: "test_database"
-    },
-    collection: "test",
-    target_doc: {"test": "test"},
-    method: 0,
-    doc: null,
-    param: {},
-    pipeline: null
+    "db": "test",
+    "collection": "test",
+    "target_doc": {"test": "test"},
+    "method": 0,
+    "doc": null,
+    "param": null,
+    "pipeline": null
 }
 ```
-- db: optional, it is the object contain the 【name】 only, only work in transaction,if you set it wrong, nayo will throw error, if you don's set this, the transaction will use the default db when you config the nayo:
-  - name: the db's name, **The database must exist, otherwise it will not work properly!**
+- db: the workPack will do in this db, if you set it wrong, nayo will throw error
 - collection: the collection name of db, it should be required
 - target_doc: if the method have the target document, you should write this, the query is same as the orignal operation, like {xxx: xxx} in db.test.find({xxx: xxx}); if the method haven't the traget document, you should set the target_doc to null
 - method: the number of operation method:
@@ -111,7 +112,6 @@ every workPack is a json, just like this
 
 [Here is the doc](https://docs.mongodb.com/manual/crud/), you can learn about the orignal operation CURD in detail.
 
-In the end, **All attributes except the 【db】 of the workPack should not be discarded**.
 
 OK, all these are about the introduction of the workList and workPack, if you still have question, you can commit issue for help.
 
@@ -131,14 +131,7 @@ const Nayo = require("nayo");
 // here is two params, options and config
 
 let options = {
-    // mongodb url
-    url: "xxx",
-    // default db's options
-    // db is object, shoul contain the db's name, like below
-    // db is same as the workPack's db
-    db: {
-       name: "yyy" 
-    }
+    url: "xxx"  // mongodb url, options only have this params now
 }
 
 /*
@@ -181,12 +174,13 @@ const nayo = new Nayo(options, config);
 // arrange the workList and workPack
 let workList = [
     {
-        collection: "test",
-        target_doc: null,
-        method: 0, // insertOne
-        doc: { "test": "test" },
-        param: {},
-        pipeline: null
+        "db": "test",
+        "collection": "test",
+        "target_doc": null,
+        "method": 0, // insertOne
+        "doc": { "test": "test" },
+        "param": null,
+        "pipeline": null
     }
 ];
 
@@ -195,23 +189,22 @@ let workList = [
 // but nayo transaction only support the method "insertOne", "deleteOne", "findOneAndUpdate", "deleteMany", "updateMany" now
 let workList_transaction = [
     {
-        db: {
-            name: "test_database"
-        },
-        collection: "test",
-        target_doc: null,
-        method: 0, // insertOne
-        doc: { "test": "test" },
-        param: {},
-        pipeline: null
+        "db": "test",
+        "collection": "test",
+        "target_doc": null,
+        "method": 0, // insertOne
+        "doc": { "test": "test" },
+        "param": {},
+        "pipeline": null
     },
     {
-        collection: "test",
-        target_doc: null,
-        method: 0, // insertOne
-        doc: { "test": "test" },
-        param: {},
-        pipeline: null
+        "db": "test_1",
+        "collection": "test",
+        "target_doc": { "test": "test" },
+        "method": 3, // insertOne
+        "doc": { "$set": { "test_1": 123 } },
+        "param": null,
+        "pipeline": null
     },
     ...
 ]
@@ -267,7 +260,21 @@ nayo.authenticate().then(ret => {
 });
 ```
 
-### 7.License
+### 7.MongoClient
+if you init Nayo class，you can use this below to get the MongoClient instance to do some other work
+```
+nayo = new Nayo(options, config);
+
+# MongoClient
+# this client is Promise, if you want to get detail, you should use ".then" to get it
+# by the way, the client you got connect-state is unknown
+# http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
+nayo.client.then(client => {
+    client
+}).catch(e => {...});
+```
+
+### 8.License
 
 This library is published under the MIT license. See LICENSE for details.
 
