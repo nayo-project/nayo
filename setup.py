@@ -12,10 +12,10 @@ from setuptools import setup, find_packages
 
 setup(
     name="nayo",
-    version="2.0.1",
+    version="2.0.2",
     keywords=("nayo", "mongo", "operation", "DAO"),
     description="the simple operation interface for mongoDB",
-    long_description=open("description.rst").read(),
+    long_description="For this package detail,Please Refer `Nayo <https://github.com/nayo-project/nayo>`_",
     license="MIT Licence",
     url="https://github.com/nayo-project/nayo",
     project_urls={

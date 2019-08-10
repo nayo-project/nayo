@@ -1,1 +1,0 @@
-For this package detail,Please Refer `Nayo <https://github.com/nayo-project/nayo>`_
