@@ -3,3 +3,6 @@
 /test
 package-lock.json
 /dev
+/build
+/dist
+/nayo.egg-info
