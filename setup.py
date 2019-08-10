@@ -12,14 +12,14 @@ from setuptools import setup, find_packages
 
 setup(
     name="nayo",
-    version="2.0.0",
+    version="2.0.1",
     keywords=("nayo", "mongo", "operation", "DAO"),
     description="the simple operation interface for mongoDB",
-    long_description=open("README.rst").read(),
+    long_description=open("description.rst").read(),
     license="MIT Licence",
     url="https://github.com/nayo-project/nayo",
     project_urls={
-        "nayo source": "https://github.com/nayo-project/nayo"
+        "Nayo Github": "https://github.com/nayo-project/nayo"
     },
     python_requires=">=3.6",
     author="Terence.Sun",
